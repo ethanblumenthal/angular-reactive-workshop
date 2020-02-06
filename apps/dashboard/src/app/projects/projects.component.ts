@@ -6,7 +6,10 @@ import {
   ProjectsService,
   NotificationsService,
   CustomersService,
-  ProjectsState
+  ProjectsState,
+  AddProject,
+  UpdateProject,
+  DeleteProject
 } from '@workshop/core-data';
 import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -77,21 +80,21 @@ export class ProjectsComponent implements OnInit {
   }
 
   createProject(project) {
-    this.store.dispatch({ type: 'create', payload: project });
+    this.store.dispatch(new AddProject(project));
 
     this.ns.emit('Project created!');
     this.resetCurrentProject();
   }
 
   updateProject(project) {
-    this.store.dispatch({ type: 'update', payload: project });
+    this.store.dispatch(new UpdateProject(project));
 
     this.ns.emit('Project updated!');
     this.resetCurrentProject();
   }
 
   deleteProject(project) {
-    this.store.dispatch({ type: 'delete', payload: project });
+    this.store.dispatch(new DeleteProject(project));
 
     this.ns.emit('Project deleted!');
     this.resetCurrentProject();
