@@ -11,7 +11,8 @@ import {
   UpdateProject,
   DeleteProject,
   LoadProjects,
-  initialProjects
+  initialProjects,
+  selectAllProjects
 } from '@workshop/core-data';
 import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -41,11 +42,7 @@ export class ProjectsComponent implements OnInit {
     private store: Store<ProjectsState>,
     private ns: NotificationsService
   ) {
-    this.projects$ = store.pipe(
-      select('projects'),
-      map(data => data.entities),
-      map(data => Object.keys(data).map(k => data[k]))
-    );
+    this.projects$ = store.pipe(select(selectAllProjects));
   }
 
   ngOnInit() {
